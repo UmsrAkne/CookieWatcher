@@ -1,0 +1,9 @@
+﻿<prism:PrismApplication x:Class="CookieWatcher.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	     xmlns:prism="http://prismlibrary.com/"
+             xmlns:local="clr-namespace:CookieWatcher">
+    <Application.Resources>
+         
+    </Application.Resources>
+</prism:PrismApplication>
