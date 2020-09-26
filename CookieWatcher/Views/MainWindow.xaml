@@ -29,17 +29,30 @@
         <ContentControl prism:RegionManager.RegionName="ContentRegion" />
 
         <StackPanel Grid.Row="0"
-                    Orientation="Horizontal"
+                    Orientation="Vertical"
                     >
 
-            <TextBlock Text="CookieCount : "
-                       FontSize="14"
-                       />
-            <TextBlock Text="{Binding Watcher.CookieCount}"
-                       FontSize="14"
-                       />
+            <StackPanel Grid.Row="0"
+                        Orientation="Horizontal"
+                        >
+
+                <TextBlock Text="CookieCount : "
+                           FontSize="14"
+                           />
+                <TextBlock Text="{Binding Watcher.CookieCount}"
+                           FontSize="14"
+                           />
+
+            </StackPanel>
+
+            <Button Content="Click Cookie" 
+                    Width="200"
+                    HorizontalAlignment="Left"
+                    Command="{Binding CookieController.ClickCookieCommand}"
+                    />
 
         </StackPanel>
+
 
         <StackPanel Grid.Row="1"
                     HorizontalAlignment="Right"
