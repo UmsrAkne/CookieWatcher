@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using CookieWatcher.Models;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -31,6 +32,15 @@ namespace CookieWatcher.ViewModels
         public Watcher watcher;
         #endregion
 
+        public CookieController CookieController {
+            #region
+            get => cookieController;
+            set => cookieController = value;
+        }
+
+        private CookieController cookieController;
+        #endregion;
+
         private string _title = "Prism Application";
         public string Title
         {
@@ -54,6 +64,7 @@ namespace CookieWatcher.ViewModels
             driver.Navigate().GoToUrl(@"https://orteil.dashnet.org/cookieclicker/");
 
             watcher = new Watcher(driver);
+            cookieController = new CookieController(driver);
 
             timer.Elapsed += intervalProcess;
             timer.Start();
@@ -73,7 +84,6 @@ namespace CookieWatcher.ViewModels
             get => closeDriverCommand ?? (closeDriverCommand = new DelegateCommand(
                 () => {
                     driver.Close();
-                    System.Diagnostics.Debug.WriteLine("execute command");
                 }
             ));
         }
