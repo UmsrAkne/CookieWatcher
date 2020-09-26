@@ -11,6 +11,15 @@ namespace CookieWatcher.ViewModels
 
         Timer timer = new Timer(10000);
         IWebDriver driver;
+        
+        public DateTime LastUpdateDate {
+            #region 
+            get => lastUpdateDate;
+            set => SetProperty(ref lastUpdateDate, value);
+        }
+
+        private DateTime lastUpdateDate = DateTime.Now;
+        #endregion
 
         private string _title = "Prism Application";
         public string Title
@@ -39,10 +48,13 @@ namespace CookieWatcher.ViewModels
         }
 
         private void intervalProcess(object sender, ElapsedEventArgs e) {
-            string pageSource = driver.PageSource;
-            System.Diagnostics.Debug.WriteLine(
-                driver.FindElement(By.Id("cookies")).Text
-            );
+            if(driver.FindElements(By.Id("cookies")).Count > 0) {
+                System.Diagnostics.Debug.WriteLine(
+                    driver.FindElement(By.Id("cookies")).Text
+                );
+            }
+
+            LastUpdateDate = DateTime.Now;
         }
     }
 }
