@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Timers;
@@ -66,5 +67,18 @@ namespace CookieWatcher.ViewModels
 
             LastUpdateDate = DateTime.Now;
         }
+
+        public DelegateCommand CloseDriverCommand {
+            #region 
+            get => closeDriverCommand ?? (closeDriverCommand = new DelegateCommand(
+                () => {
+                    driver.Close();
+                    System.Diagnostics.Debug.WriteLine("execute command");
+                }
+            ));
+        }
+
+        private DelegateCommand closeDriverCommand;
+        #endregion
     }
 }
