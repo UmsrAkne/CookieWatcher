@@ -14,7 +14,7 @@ namespace CookieWatcher.ViewModels
 
         public string CookieCount {
             #region
-            get => cookieCount;
+            get => cookieCount.Replace("\r", " ").Replace("\n", " ").Replace("cookies  per second", " cps");
             set => SetProperty(ref cookieCount, value);
         }
 
