@@ -23,8 +23,11 @@
 
     <Grid Margin="2,2,2,2">
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
+
+            <RowDefinition Height="1*"
+                           />
+            <RowDefinition Height="2*"
+                           />
         </Grid.RowDefinitions>
         <ContentControl prism:RegionManager.RegionName="ContentRegion" />
 
@@ -52,6 +55,16 @@
                     />
 
         </StackPanel>
+
+
+        <TabControl Grid.Row="1">
+            <TabItem Header="Garden">
+            </TabItem>
+
+            <TabItem Header="Stock">
+            </TabItem>
+
+        </TabControl>
 
 
         <StackPanel Grid.Row="1"
