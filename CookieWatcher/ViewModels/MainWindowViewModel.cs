@@ -61,7 +61,7 @@ namespace CookieWatcher.ViewModels
             ds.HideCommandPromptWindow = true;
             driver = new ChromeDriver(ds,option);
 
-            // driver.Navigate().GoToUrl(@"https://orteil.dashnet.org/cookieclicker/");
+            driver.Navigate().GoToUrl(@"https://orteil.dashnet.org/cookieclicker/");
 
             watcher = new Watcher(driver);
             cookieController = new CookieController(driver);
