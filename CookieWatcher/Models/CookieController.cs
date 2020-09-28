@@ -33,7 +33,29 @@ namespace CookieWatcher.Models {
         private DelegateCommand clickCookieCommand;
         #endregion
 
+        /// <summary>
+        /// 自動操作によってゴールデンクッキーをクリックします。
+        /// </summary>
+        public DelegateCommand ClickGCCommand {
+            #region
+            get => clickGCCommand ?? (clickGCCommand = new DelegateCommand(
+                () => {
+                    string gcClassName = "shimmer";
+                    string gcID = "shimmers";
 
-private bool existID(string id) => driver.FindElements(By.Id(id)).Count > 0;
+                    if(existID(gcID) && existClass(gcClassName)) {
+                        driver.FindElement(By.ClassName(gcClassName)).Click();
+                    }
+                }
+            ));
+        }
+
+        private DelegateCommand clickGCCommand;
+        #endregion
+
+        private bool existID(string id) => driver.FindElements(By.Id(id)).Count > 0;
+        private bool existClass(string className) => driver.FindElements(By.ClassName(className)).Count > 0;
+
+
     }
 }
