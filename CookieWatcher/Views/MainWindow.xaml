@@ -54,6 +54,13 @@
                     Command="{Binding CookieController.ClickCookieCommand}"
                     />
 
+            <Button Content="Click Golden Cookie" 
+                    Width="200"
+                    HorizontalAlignment="Left"
+                    Background="Gold"
+                    Command="{Binding CookieController.ClickGCCommand}"
+                    />
+
         </StackPanel>
 
 
