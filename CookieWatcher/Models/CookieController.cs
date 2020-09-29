@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using Prism.Commands;
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,13 +8,24 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CookieWatcher.Models {
-    public class CookieController {
+    public class CookieController : BindableBase{
 
         private IWebDriver driver;
 
         public CookieController(IWebDriver dirver) {
             this.driver = dirver;
         }
+
+        /// <summary>
+        /// true になっている場合、MainWindowViewModel のタイマー内で ClickGCCommand が自動実行されます
+        /// </summary>
+        public bool EnableGCAutoClick {
+            #region
+            get => enableGCAutoClick;
+            set => SetProperty(ref enableGCAutoClick, value);
+        }
+        private bool enableGCAutoClick = false;
+        #endregion
 
         /// <summary>
         /// 大クッキーを自動操作によって１クリックします。
