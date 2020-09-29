@@ -76,6 +76,10 @@ namespace CookieWatcher.ViewModels
                 watcher.CookieCount = driver.FindElement(By.Id("cookies")).Text;
             }
 
+            if (CookieController.EnableGCAutoClick) {
+                CookieController.ClickGCCommand.Execute();
+            }
+
             LastUpdateDate = DateTime.Now;
         }
 
