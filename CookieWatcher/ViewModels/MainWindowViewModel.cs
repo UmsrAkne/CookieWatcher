@@ -80,6 +80,8 @@ namespace CookieWatcher.ViewModels
                 CookieController.ClickGCCommand.Execute();
             }
 
+            Watcher.updateBuffs();
+
             LastUpdateDate = DateTime.Now;
         }
 

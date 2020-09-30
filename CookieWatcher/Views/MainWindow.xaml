@@ -71,6 +71,15 @@
 
             </StackPanel>
 
+            <ListView ItemsSource="{Binding Watcher.Buffs}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="バフ">
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
         </StackPanel>
 
 
