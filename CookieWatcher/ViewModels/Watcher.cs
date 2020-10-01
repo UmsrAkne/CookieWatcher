@@ -30,6 +30,15 @@ namespace CookieWatcher.ViewModels
         private List<string> buffs = new List<string>();
         #endregion
 
+        public List<string> Crops {
+            #region
+            get => crops;
+            set => SetProperty(ref crops, value);
+        }
+
+        private List<string> crops = new List<string>();
+        #endregion
+
         public Watcher(IWebDriver driver) {
             this.driver = driver;
         }
@@ -50,5 +59,21 @@ namespace CookieWatcher.ViewModels
             Buffs = buffsList;
         }
 
+        public void updateGarden() {
+            if(driver.FindElements(By.Id("gardenField")).Count == 0) {
+                return;
+            }
+
+            var cropElements = driver.FindElements(By.ClassName("gardenTile"));
+            List<string> cropList = new List<string>();
+            foreach(var crElement in cropElements) {
+                var att = crElement.GetAttribute("style");
+                string s = (att.Contains("display: block;")) ? "planted" : "";
+
+                cropList.Add(s);
+            }
+
+            Crops = cropList;
+        }
     }
 }
