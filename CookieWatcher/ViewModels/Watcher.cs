@@ -2,8 +2,10 @@
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace CookieWatcher.ViewModels
@@ -64,13 +66,28 @@ namespace CookieWatcher.ViewModels
                 return;
             }
 
-            var cropElements = driver.FindElements(By.ClassName("gardenTile"));
+            var cropElements = driver.FindElements(By.ClassName("gardenTileIcon"));
             List<string> cropList = new List<string>();
             foreach(var crElement in cropElements) {
                 var att = crElement.GetAttribute("style");
-                string s = (att.Contains("display: block;")) ? "planted" : "";
+                if(!att.Contains("display: block")) {
+                    cropList.Add("");
+                    continue;
+                }
 
-                cropList.Add(s);
+                // toolTip経由で直接取得するのが一番早いが、技術的に無理そう。
+                // なので、style属性に表記されている background-position の座標から間接的に成長レベルを取得する。
+                // タイルアイコン１枚あたり 48x48 でレベルが上がる毎に x座標が -48 ずつ増える。
+                Regex r = new Regex("background-position: (?<n1>-*[0-9]*)px (?<n2>-*[0-9]*)");
+                Match m = r.Match(att);
+
+                int tileIconSize = 48;
+
+                // X座標は成長レベル Y座標は作物の種類を表す。
+                Point bgPos = new Point(int.Parse(m.Groups["n1"].Value), int.Parse(m.Groups["n2"].Value));
+                var growLevel = Math.Abs(bgPos.X / tileIconSize);
+
+                cropList.Add("planted(" + growLevel.ToString() + ")");
             }
 
             Crops = cropList;
