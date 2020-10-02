@@ -85,6 +85,13 @@
 
         <TabControl Grid.Row="1">
             <TabItem Header="Garden">
+                <ListView ItemsSource="{Binding Watcher.Crops}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="status"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </TabItem>
 
             <TabItem Header="Stock">
