@@ -41,6 +41,10 @@ namespace CookieWatcher.ViewModels
         private List<string> crops = new List<string>();
         #endregion
 
+        private string NotificationSoundFilePath = @"C:\Windows\Media\chord.wav";
+
+        private int lastMatureCropCount = 0;
+
         public Watcher(IWebDriver driver) {
             this.driver = driver;
         }
@@ -68,6 +72,7 @@ namespace CookieWatcher.ViewModels
 
             var cropElements = driver.FindElements(By.ClassName("gardenTileIcon"));
             List<string> cropList = new List<string>();
+            int matureCropCount = 0;
             foreach(var crElement in cropElements) {
                 var att = crElement.GetAttribute("style");
                 if(!att.Contains("display: block")) {
@@ -87,9 +92,18 @@ namespace CookieWatcher.ViewModels
                 Point bgPos = new Point(int.Parse(m.Groups["n1"].Value), int.Parse(m.Groups["n2"].Value));
                 var growLevel = Math.Abs(bgPos.X / tileIconSize);
 
+                if(growLevel == 4) {
+                    matureCropCount++;
+                }
+
                 cropList.Add("planted(" + growLevel.ToString() + ")");
             }
 
+            if(matureCropCount > lastMatureCropCount) {
+                new System.Media.SoundPlayer(NotificationSoundFilePath).Play();
+            }
+
+            lastMatureCropCount = matureCropCount;
             Crops = cropList;
         }
     }
