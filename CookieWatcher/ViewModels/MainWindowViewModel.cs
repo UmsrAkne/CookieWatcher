@@ -90,6 +90,7 @@ namespace CookieWatcher.ViewModels
             #region 
             get => closeDriverCommand ?? (closeDriverCommand = new DelegateCommand(
                 () => {
+                    timer.Stop();
                     driver.Close();
                 }
             ));
