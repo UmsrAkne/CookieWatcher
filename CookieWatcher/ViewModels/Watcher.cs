@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using CookieWatcher.Models;
+using OpenQA.Selenium;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -32,18 +33,25 @@ namespace CookieWatcher.ViewModels
         private List<string> buffs = new List<string>();
         #endregion
 
-        public List<string> Crops {
+        public List<GardenTile> Crops {
             #region
             get => crops;
             set => SetProperty(ref crops, value);
         }
 
-        private List<string> crops = new List<string>();
+        private List<GardenTile> crops = new List<GardenTile>();
         #endregion
 
         private string NotificationSoundFilePath = @"C:\Windows\Media\chord.wav";
+        public Dictionary<string,GardenTile> CropDictionary {
+            #region
+            get => cropDictionary;
+            set => SetProperty(ref cropDictionary, value);
+        }
 
-        private int lastMatureCropCount = 0;
+        private Dictionary<string, GardenTile> cropDictionary = new Dictionary<string, GardenTile>();
+        #endregion
+
 
         public Watcher(IWebDriver driver) {
             this.driver = driver;
@@ -71,12 +79,27 @@ namespace CookieWatcher.ViewModels
             }
 
             var cropElements = driver.FindElements(By.ClassName("gardenTileIcon"));
-            List<string> cropList = new List<string>();
-            int matureCropCount = 0;
+            List<GardenTile> cropList = new List<GardenTile>();
+            var cropMaturing = false;
+
             foreach(var crElement in cropElements) {
                 var att = crElement.GetAttribute("style");
+
+                // gardeTileオブジェクトは、都度生成ではなく、辞書から既存のオブジェクトを取り出す
+                var elementID = crElement.GetAttribute("id");
+                if (!CropDictionary.ContainsKey(elementID)) {
+                    GardenTile tile = new GardenTile();
+                    CropDictionary[elementID] = tile;
+                    tile.CropIDName = elementID;
+                }
+
+                GardenTile gc = CropDictionary[elementID];
+
                 if(!att.Contains("display: block")) {
-                    cropList.Add("");
+                    // 作物が植えられていない場合に突入するブロック 実行後に即リターン
+                    gc.Level = 0;
+                    gc.CropIDName = "";
+                    cropList.Add(gc);
                     continue;
                 }
 
@@ -91,19 +114,20 @@ namespace CookieWatcher.ViewModels
                 // X座標は成長レベル Y座標は作物の種類を表す。
                 Point bgPos = new Point(int.Parse(m.Groups["n1"].Value), int.Parse(m.Groups["n2"].Value));
                 var growLevel = Math.Abs(bgPos.X / tileIconSize);
+                gc.Level = growLevel;
+                gc.CropName = "platend";
 
-                if(growLevel == 4) {
-                    matureCropCount++;
+                if (gc.Maturing) {
+                    cropMaturing = true;
                 }
 
-                cropList.Add("planted(" + growLevel.ToString() + ")");
+                cropList.Add(gc);
             }
 
-            if(matureCropCount > lastMatureCropCount) {
+            if(cropMaturing) {
                 new System.Media.SoundPlayer(NotificationSoundFilePath).Play();
             }
 
-            lastMatureCropCount = matureCropCount;
             Crops = cropList;
         }
     }
