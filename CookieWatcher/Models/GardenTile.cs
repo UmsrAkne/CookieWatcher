@@ -15,13 +15,17 @@ namespace CookieWatcher.Models
 
     public class GardenTile : BindableBase
     {
-        public int CropID {
+
+        /// <summary>
+        /// ID が番号ではなく文字列になっているのは、HTML上の ID 属性が文字列なため
+        /// </summary>
+        public string CropIDName {
             #region
-            get => cropID;
-            set => SetProperty(ref cropID, value);
+            get => cropIDName;
+            set => SetProperty(ref cropIDName, value);
         }
 
-        private int cropID;
+        private string cropIDName;
         #endregion
 
         public string CropName {
