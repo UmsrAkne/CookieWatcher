@@ -88,7 +88,15 @@
                 <ListView ItemsSource="{Binding Watcher.Crops}">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="status"/>
+                            <GridViewColumn Header="level"
+                                            DisplayMemberBinding="{Binding Level}"
+                                            />
+
+                            <GridViewColumn Header="name"
+                                            DisplayMemberBinding="{Binding CropName}"
+                                            Width="200"
+                                            />
+
                         </GridView>
                     </ListView.View>
                 </ListView>
