@@ -40,11 +40,25 @@ namespace CookieWatcher.Models
         public int Level {
             #region
             get => level;
-            set => SetProperty(ref level, value);
+            set {
+                if(level == 3 && value == 4){ // level 3 は完熟一歩手前, level 4 は完熟状態
+                    Maturing = true;
+                }
+                else {
+                    Maturing = false;
+                }
+
+                SetProperty(ref level, value);
+            }
         }
         private int level = 1;
         #endregion
 
         public Point Point { get; set; }
+
+        /// <summary>
+        /// 作物が完熟状態になった直後に true になり、その後、Level の set が参照されたタイミングで false に戻ります。 
+        /// </summary>
+        public bool Maturing { get; private set; } = false;
     }
 }
