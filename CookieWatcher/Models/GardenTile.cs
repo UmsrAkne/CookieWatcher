@@ -34,7 +34,7 @@ namespace CookieWatcher.Models
             set => SetProperty(ref cropName, value);
         }
 
-        public string cropName;
+        private string cropName = "";
         #endregion
 
         public int Level {
@@ -60,5 +60,11 @@ namespace CookieWatcher.Models
         /// 作物が完熟状態になった直後に true になり、その後、Level の set が参照されたタイミングで false に戻ります。 
         /// </summary>
         public bool Maturing { get; private set; } = false;
+
+        /// <summary>
+        /// このマスに作物が植えられているかを取得します。
+        /// </summary>
+        public bool Exist { get => CropName != ""; }
+
     }
 }

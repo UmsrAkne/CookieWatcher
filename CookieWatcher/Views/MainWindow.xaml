@@ -86,6 +86,16 @@
         <TabControl Grid.Row="1">
             <TabItem Header="Garden">
                 <ListView ItemsSource="{Binding Watcher.Crops}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Exist}" Value="True">
+                                    <Setter Property="Background" Value="LightPink"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+
+                    </ListView.ItemContainerStyle>
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="level"
