@@ -98,7 +98,7 @@ namespace CookieWatcher.ViewModels
                 if(!att.Contains("display: block")) {
                     // 作物が植えられていない場合に突入するブロック 実行後に即リターン
                     gc.Level = 0;
-                    gc.CropIDName = "";
+                    gc.CropName = "";
                     cropList.Add(gc);
                     continue;
                 }
