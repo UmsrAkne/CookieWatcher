@@ -8,12 +8,11 @@ using System.Timers;
 
 namespace CookieWatcher.ViewModels
 {
-    public class MainWindowViewModel : BindableBase
-    {
+    public class MainWindowViewModel : BindableBase {
 
         Timer timer = new Timer(10000);
         IWebDriver driver;
-        
+
         public DateTime LastUpdateDate {
             #region 
             get => lastUpdateDate;
@@ -41,6 +40,8 @@ namespace CookieWatcher.ViewModels
         private CookieController cookieController;
         #endregion;
 
+        public Wizard Wizard { get; private set; }
+
         private string _title = "Prism Application";
         public string Title
         {
@@ -66,6 +67,8 @@ namespace CookieWatcher.ViewModels
             watcher = new Watcher(driver);
             cookieController = new CookieController(driver);
 
+            Wizard = new Wizard(driver);
+
             timer.Elapsed += intervalProcess;
             timer.Start();
 
@@ -82,6 +85,7 @@ namespace CookieWatcher.ViewModels
 
             Watcher.updateBuffs();
             Watcher.updateGarden();
+            Wizard.update(driver);
 
             LastUpdateDate = DateTime.Now;
         }
