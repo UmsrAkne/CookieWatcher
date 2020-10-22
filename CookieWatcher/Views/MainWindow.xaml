@@ -71,6 +71,21 @@
 
             </StackPanel>
 
+            <StackPanel Orientation="Horizontal">
+
+                <Button Content="Summon Cookie"
+                        Width="200"
+                        />
+                <TextBlock Text="MP => " 
+                           Padding="2"
+                           />
+
+                <TextBlock Text="{Binding Wizard.MPText}"
+                           Padding="2"
+                           />
+
+            </StackPanel>
+
             <ListView ItemsSource="{Binding Watcher.Buffs}">
                 <ListView.View>
                     <GridView>
