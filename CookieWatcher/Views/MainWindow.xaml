@@ -93,7 +93,9 @@
 
             <StackPanel Orientation="Horizontal">
                 
-                <CheckBox Margin="2"/>
+                <CheckBox Margin="2"
+                          IsChecked="{Binding Wizard.AutoSummon}"
+                          />
 
                 <TextBlock Text="Auto summon Cookie"
                            Padding="2"

@@ -46,6 +46,18 @@ namespace CookieWatcher.Models
         private int maxMP;
         #endregion
 
+        /// <summary>
+        /// このプロパティが true の時、update() の際にMPが全快だったら、SummonCookieCommand を実行します。
+        /// </summary>
+        public bool AutoSummon {
+            #region
+            get => autoSummon;
+            set => SetProperty(ref autoSummon, value);
+        }
+
+        private bool autoSummon;
+        #endregion
+
         public string MPText {
             get => $"{MP} / {MaxMP}";
         }
@@ -60,6 +72,10 @@ namespace CookieWatcher.Models
             string[] mpText = driver.FindElement(By.Id("grimoireBarText")).Text.Split('/','(');
             MP = int.Parse(mpText[0]);
             MaxMP = int.Parse(mpText[1]);
+
+            if (AutoSummon && MP == MaxMP) {
+                SummonCookieCommand.Execute();
+            }
         }
 
         public DelegateCommand SummonCookieCommand {
