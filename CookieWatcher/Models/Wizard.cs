@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -14,12 +15,20 @@ namespace CookieWatcher.Models
 {
     public class Wizard : BindableBase {
 
+        public Wizard(IWebDriver driver) {
+            Driver = driver;
+        }
+
+
+        public IWebDriver Driver { private get; set; }
+
         public int MP {
             #region
             get => mp;
             set {
                 SetProperty(ref mp, value);
                 RaisePropertyChanged(nameof(MPText));
+                SummonCookieCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -52,5 +61,29 @@ namespace CookieWatcher.Models
             MP = int.Parse(mpText[0]);
             MaxMP = int.Parse(mpText[1]);
         }
+
+        public DelegateCommand SummonCookieCommand {
+            #region
+            get => summonCookieCommand ?? (summonCookieCommand = new DelegateCommand(
+                () => {
+                    const string spellID = "grimoireSpell1";
+                    if(Driver.FindElements(By.Id(spellID)).Count > 0) {
+                        Driver.FindElement(By.Id(spellID)).Click();
+                    }
+                },
+                () => {
+                    const string spellPriceID = "grimoirePrice1";
+                    if (Driver.FindElements(By.Id(spellPriceID)).Count > 0) {
+                        return int.Parse(Driver.FindElement(By.Id(spellPriceID)).Text) <= MP;
+                    }
+                    else {
+                        return false;
+                    }
+                }
+            ));
+        }
+
+        private DelegateCommand summonCookieCommand;
+        #endregion
     }
 }

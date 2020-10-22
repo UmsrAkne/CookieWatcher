@@ -40,7 +40,7 @@ namespace CookieWatcher.ViewModels
         private CookieController cookieController;
         #endregion;
 
-        public Wizard Wizard { get; private set; } = new Wizard();
+        public Wizard Wizard { get; private set; }
 
         private string _title = "Prism Application";
         public string Title
@@ -66,6 +66,8 @@ namespace CookieWatcher.ViewModels
 
             watcher = new Watcher(driver);
             cookieController = new CookieController(driver);
+
+            Wizard = new Wizard(driver);
 
             timer.Elapsed += intervalProcess;
             timer.Start();

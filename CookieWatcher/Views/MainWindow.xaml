@@ -75,6 +75,7 @@
 
                 <Button Content="Summon Cookie"
                         Width="200"
+                        Command="{Binding Wizard.SummonCookieCommand}"
                         />
                 <TextBlock Text="MP => " 
                            Padding="2"
