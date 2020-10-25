@@ -115,7 +115,7 @@ namespace CookieWatcher.ViewModels
                 Point bgPos = new Point(int.Parse(m.Groups["n1"].Value), int.Parse(m.Groups["n2"].Value));
                 var growLevel = Math.Abs(bgPos.X / tileIconSize);
                 gc.Level = growLevel;
-                gc.CropName = "platend";
+                gc.setCropName((int)Math.Abs(bgPos.Y / tileIconSize));
 
                 if (gc.Maturing) {
                     cropMaturing = true;

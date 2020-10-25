@@ -122,7 +122,7 @@
                     <ListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListViewItem}">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Exist}" Value="True">
+                                <DataTrigger Binding="{Binding Level}" Value="4">
                                     <Setter Property="Background" Value="LightPink"/>
                                 </DataTrigger>
                             </Style.Triggers>

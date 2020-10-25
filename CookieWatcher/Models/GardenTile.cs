@@ -66,5 +66,56 @@ namespace CookieWatcher.Models
         /// </summary>
         public bool Exist { get => CropName != ""; }
 
+        /// <summary>
+        /// インデックスから作物の名前を設定します。
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public void setCropName(int index) {
+            CropName = cropNames[index];
+        }
+
+        private String[] cropNames = {
+            "Bakers wheat",
+            "Thumbcorn",
+            "Cronerice",
+            "planted",
+            "planted",
+
+            "planted",
+            "planted",
+            "planted",
+            "BakeBerry",
+            "planted",
+
+            "planted",
+            "planted",
+            "planted",
+            "planted",
+            "planted",
+
+            "planted",
+            "planted",
+            "planted",
+            "planted",
+            "planted",
+
+            "planted",
+            "planted",
+            "planted",
+            "planted",
+            "planted",
+
+            "planted",
+            "planted",
+            "planted",
+            "planted",
+            "planted",
+
+            "planted",
+            "planted",
+        };
+
     }
+
 }
