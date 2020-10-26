@@ -119,6 +119,25 @@
         <TabControl Grid.Row="1">
             <TabItem Header="Garden">
                 <ListView ItemsSource="{Binding Watcher.Crops}">
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ContentControl>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Level}"/>
+                                    <TextBlock Text="{Binding CropName}"/>
+                                </StackPanel>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <i:InvokeCommandAction Command="{Binding RowClickCommand}"
+                                                               CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ListView}}" 
+                                                               />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ContentControl>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
                     <ListView.ItemContainerStyle>
                         <Style TargetType="{x:Type ListViewItem}">
                             <Style.Triggers>
@@ -129,19 +148,7 @@
                         </Style>
 
                     </ListView.ItemContainerStyle>
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="level"
-                                            DisplayMemberBinding="{Binding Level}"
-                                            />
 
-                            <GridViewColumn Header="name"
-                                            DisplayMemberBinding="{Binding CropName}"
-                                            Width="200"
-                                            />
-
-                        </GridView>
-                    </ListView.View>
                 </ListView>
             </TabItem>
 
