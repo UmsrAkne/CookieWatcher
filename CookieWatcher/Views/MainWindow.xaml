@@ -123,10 +123,22 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ContentControl>
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding Level}"/>
-                                    <TextBlock Text="{Binding CropName}"/>
-                                </StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="8*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding Level}"
+                                               Grid.Column="0"
+                                               Margin="2,0,2,0"
+                                               />
+                                    <TextBlock Text="{Binding CropName}"
+                                               Grid.Column="1"
+                                               Width="300"
+                                               HorizontalAlignment="Stretch"
+                                               />
+                                </Grid>
+
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseDoubleClick">
                                         <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window},Path=DataContext.HarvestCommand}"

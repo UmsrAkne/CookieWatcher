@@ -4,6 +4,7 @@ using OpenQA.Selenium.Chrome;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
+using System.Collections.Generic;
 using System.Timers;
 using System.Windows.Controls;
 
