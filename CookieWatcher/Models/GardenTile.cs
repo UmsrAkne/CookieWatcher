@@ -1,4 +1,5 @@
-﻿using Prism.Mvvm;
+﻿using Prism.Commands;
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -21,7 +22,7 @@ namespace CookieWatcher.Models
         /// </summary>
         public string CropIDName {
             #region
-            get => cropIDName;
+            get => cropIDName.Replace("Icon", "");
             set => SetProperty(ref cropIDName, value);
         }
 
