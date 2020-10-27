@@ -129,8 +129,8 @@
                                 </StackPanel>
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseDoubleClick">
-                                        <i:InvokeCommandAction Command="{Binding RowClickCommand}"
-                                                               CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ListView}}" 
+                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window},Path=DataContext.HarvestCommand}"
+                                                               CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ListViewItem}}" 
                                                                />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
