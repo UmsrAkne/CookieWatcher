@@ -19,6 +19,7 @@ namespace CookieWatcher.Models {
     public class Farmer : BindableBase{
 
         private IWebDriver driver;
+        private TimeSpan lastTick = new TimeSpan(0,15,0); // 作物成長の最長 Tick が１５分であるため
 
         public Farmer(IWebDriver webDriver) {
             driver = webDriver;
@@ -29,8 +30,15 @@ namespace CookieWatcher.Models {
             get => crops;
             set => SetProperty(ref crops, value);
         }
-
         private List<GardenTile> crops = new List<GardenTile>();
+        #endregion
+
+        public int TickCount {
+            #region
+            get => tickCount;
+            set => SetProperty(ref tickCount, value);
+        }
+        private int tickCount = 0;
         #endregion
 
         private string NotificationSoundFilePath = @"C:\Windows\Media\chord.wav";
@@ -40,14 +48,31 @@ namespace CookieWatcher.Models {
             get => cropDictionary;
             set => SetProperty(ref cropDictionary, value);
         }
-
         private Dictionary<string, GardenTile> cropDictionary = new Dictionary<string, GardenTile>();
         #endregion
+
+        private void updateTick() {
+            // tick 取得
+            Regex regex = new Regex("[0-9]+");
+            var matches = regex.Matches(driver.FindElement(By.Id("gardenNextTick")).Text);
+
+            TimeSpan tick = (matches.Count == 2) ? new TimeSpan(0, int.Parse(matches[0].Value), int.Parse(matches[1].Value))
+                                        : new TimeSpan(0, 0, int.Parse(matches[0].Value));
+
+            if(tick.Ticks > lastTick.Ticks) {
+                // 最後に取得した Tick よりも現在の Tick が大きい = Tick が一周している
+                TickCount++;
+            }
+
+            lastTick = tick;
+        }
 
         public void updateGarden() {
             if(driver.FindElements(By.Id("gardenField")).Count == 0) {
                 return;
             }
+
+            updateTick();
 
             var cropElements = driver.FindElements(By.ClassName("gardenTileIcon"));
             List<GardenTile> cropList = new List<GardenTile>();
