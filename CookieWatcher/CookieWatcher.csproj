@@ -65,6 +65,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\CookieController.cs" />
+    <Compile Include="Models\Farmer.cs" />
     <Compile Include="Models\GardenTile.cs" />
     <Compile Include="Models\Wizard.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />

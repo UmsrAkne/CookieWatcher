@@ -43,6 +43,7 @@ namespace CookieWatcher.ViewModels
         #endregion;
 
         public Wizard Wizard { get; private set; }
+        public Farmer Farmer { get; private set; }
 
         private string _title = "Prism Application";
         public string Title
@@ -70,6 +71,7 @@ namespace CookieWatcher.ViewModels
             cookieController = new CookieController(driver);
 
             Wizard = new Wizard(driver);
+            Farmer = new Farmer(driver);
 
             timer.Elapsed += intervalProcess;
             timer.Start();
@@ -86,7 +88,7 @@ namespace CookieWatcher.ViewModels
             }
 
             Watcher.updateBuffs();
-            Watcher.updateGarden();
+            Farmer.updateGarden();
             Wizard.update(driver);
 
             LastUpdateDate = DateTime.Now;
@@ -106,17 +108,5 @@ namespace CookieWatcher.ViewModels
         #endregion
 
 
-        public DelegateCommand<ListViewItem> HarvestCommand {
-            #region
-            get => harvestCommand ?? (harvestCommand = new DelegateCommand<ListViewItem>((ListViewItem param) => {
-                var gardenTile = param.Content as GardenTile;
-                if (gardenTile != null && driver.FindElement(By.Id(gardenTile.CropIDName)).Displayed) {
-                    driver.FindElement(By.Id(gardenTile.CropIDName)).Click();
-                }
-            }));
-        }
-
-        private DelegateCommand<ListViewItem> harvestCommand;
-        #endregion
     }
 }
