@@ -88,7 +88,7 @@ namespace CookieWatcher.ViewModels
             }
 
             Watcher.updateBuffs();
-            Watcher.updateGarden();
+            Farmer.updateGarden();
             Wizard.update(driver);
 
             LastUpdateDate = DateTime.Now;

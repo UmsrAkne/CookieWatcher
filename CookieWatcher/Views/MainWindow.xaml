@@ -118,7 +118,7 @@
 
         <TabControl Grid.Row="1">
             <TabItem Header="Garden">
-                <ListView ItemsSource="{Binding Watcher.Crops}">
+                <ListView ItemsSource="{Binding Farmer.Crops}">
 
                     <ListView.ItemTemplate>
                         <DataTemplate>
