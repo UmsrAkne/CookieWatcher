@@ -141,7 +141,7 @@
 
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseDoubleClick">
-                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window},Path=DataContext.HarvestCommand}"
+                                        <i:InvokeCommandAction Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window},Path=DataContext.Farmer.HarvestCommand}"
                                                                CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType=ListViewItem}}" 
                                                                />
                                     </i:EventTrigger>
