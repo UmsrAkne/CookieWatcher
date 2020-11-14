@@ -140,9 +140,9 @@
                                 <ContentControl>
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="1*"/>
-                                            <ColumnDefinition Width="1*"/>
-                                            <ColumnDefinition Width="8*"/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition Width="20"/>
+                                            <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Text="{Binding Level}"
                                                    Grid.Column="0"
@@ -157,7 +157,6 @@
 
                                         <TextBlock Text="{Binding CropName}"
                                                    Grid.Column="2"
-                                                   Width="300"
                                                    HorizontalAlignment="Stretch"
                                                    />
                                     </Grid>
@@ -180,6 +179,10 @@
                                         <Setter Property="Background" Value="LightPink"/>
                                     </DataTrigger>
                                 </Style.Triggers>
+
+                                <Style.Setters>
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                </Style.Setters>
                             </Style>
 
                         </ListView.ItemContainerStyle>
