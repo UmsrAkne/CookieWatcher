@@ -80,8 +80,8 @@ namespace CookieWatcher.Models
             "Bakers wheat",
             "Thumbcorn",
             "Cronerice",
-            "planted",
-            "planted",
+            "Gildmillet",
+            "Ordinary clover",
 
             "planted",
             "planted",
@@ -111,8 +111,9 @@ namespace CookieWatcher.Models
             "planted",
             "planted",
             "planted",
-            "planted",
+            "Meddle weed",
 
+            "planted",
             "planted",
             "planted",
         };
